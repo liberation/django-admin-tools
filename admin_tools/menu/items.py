@@ -50,6 +50,7 @@ class MenuItem(object):
     """
 
     title = 'Untitled menu item'
+    is_safe = False
     url = '#'
     css_classes = None
     accesskey = None
