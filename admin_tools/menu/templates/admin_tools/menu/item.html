@@ -1,3 +1,4 @@
+{% load admin_tools_menu_tags %}
 {% spaceless %}
 {% if not item.is_empty %}
 <li class="menu-item{% ifequal index 1 %} first{% endifequal %}{% if not item.enabled %} disabled{% endif %}{% if selected %} selected{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}">
