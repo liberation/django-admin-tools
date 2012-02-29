@@ -15,6 +15,11 @@ class MenuItem(object):
         django gettext functions if your application is multilingual.
         Default value: 'Untitled menu item'.
 
+    ``is_safe``
+        Boolean that determines whether the title should be escaped or not.
+        Set it to False if you want to add HTML tags inside ``title``.
+        Default value: False.
+
     ``url``
         String that contains the menu item URL.
         Default value: '#'.
