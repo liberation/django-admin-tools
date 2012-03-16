@@ -8,7 +8,7 @@ class Bookmark(models.Model):
     This model represents a user created bookmark.
     """
     user = models.ForeignKey('auth.User')
-    url = models.CharField(max_length=255)
+    url = models.CharField(max_length=3000)
     title = models.CharField(max_length=255)
 
     def __unicode__(self):
