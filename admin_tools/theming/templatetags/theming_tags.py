@@ -13,11 +13,20 @@ register = template.Library()
 def render_theming_css():
     """
     Template tag that renders the needed css files for the theming app.
+
+    If ADMIN_TOOLS_THEMING_CSS is explicitely defined to None, don't render
+    anything.
     """
-    css = getattr(settings, 'ADMIN_TOOLS_THEMING_CSS', False)
-    if css:
-        css = '/'.join([get_media_url(), css])
-    else:
-        css = '/'.join([get_media_url(), 'admin_tools', 'css', 'theming.css'])
-    return '<link rel="stylesheet" type="text/css" media="screen" href="%s" />' % css
+    rval = ''
+    try:
+        css_path = getattr(settings, 'ADMIN_TOOLS_THEMING_CSS')
+    except AttributeError:
+        css_path = 'admin_tools/css/theming.css'
+
+    if css_path is not None:
+        css_url = '%s/%s' % (get_media_url(), css_path)
+        rval = '<link rel="stylesheet" type="text/css" media="screen" href="%s" />' % css_url
+
+    return rval
+
 register.simple_tag(render_theming_css)
