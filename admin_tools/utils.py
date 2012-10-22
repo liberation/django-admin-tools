@@ -30,7 +30,7 @@ def get_admin_site(context=None, request=None):
     if type(dashboard_cls) is types.DictType:
         if context:
             request = context.get('request')
-        curr_url = request.META['PATH_INFO']
+        curr_url = request.path
         for key in dashboard_cls:
             mod, inst = key.rsplit('.', 1)
             mod = import_module(mod)
@@ -86,7 +86,10 @@ def filter_models(request, models, exclude):
         for item in included:
             model, perms = item
             if fnmatch(full_name(model), pattern):
-                result.remove(item)
+                try:
+                    result.remove(item)
+                except ValueError:  # if the item was already removed skip
+                    pass
     return result
 
 
