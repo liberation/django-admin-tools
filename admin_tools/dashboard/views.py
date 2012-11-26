@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.views.generic.simple import direct_to_template
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django.contrib import messages
 
 try:
     from django.views.decorators.csrf import csrf_exempt
@@ -35,7 +37,7 @@ def set_preferences(request, dashboard_id):
             preferences = form.save()
             if request.is_ajax():
                 return HttpResponse('true')
-            request.user.message_set.create(message='Preferences saved')
+            messages.success(request, 'Preferences saved')
         elif request.is_ajax():
             return HttpResponse('false')
     else:
@@ -44,6 +46,5 @@ def set_preferences(request, dashboard_id):
             dashboard_id=dashboard_id,
             instance=preferences
         )
-    return direct_to_template(request, 'admin_tools/dashboard/preferences_form.html', {
-        'form': form,   
-    })
+    return render_to_response('admin_tools/dashboard/preferences_form.html',
+                              RequestContext(request, {'form': form}))
