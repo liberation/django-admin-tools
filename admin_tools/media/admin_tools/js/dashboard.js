@@ -1,4 +1,4 @@
-var init_dashboard = function(id, columns, preferences, url) {
+window.init_dashboard = function(id, columns, preferences, url) {
     jQuery('#'+id).dashboard({
         'columns': columns,
         'load_preferences_function': function(options) {
